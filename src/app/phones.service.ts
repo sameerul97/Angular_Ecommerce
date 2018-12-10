@@ -15,8 +15,8 @@ export class PhonesService {
   
 
   constructor(private http_Var: HttpClient) { }
-  public authToken : string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NDQyNjM0LCJleHAiOjE1NDQ0NDYyMzQsInN1YiI6InNhbWVlZXJ1bCJ9.5hJR_6tBGrszblqnFnYISOf8RLN7WDSOLXyxs4pMRak"
-
+  public authToken : string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NDgyODIyLCJleHAiOjE1NDQ0ODY0MjIsInN1YiI6InNhbWVlZXJ1bCJ9.7u4Q34USMPl8rR61I-JxUy9qx2KgNtLZojtnzFazxKc"
+  public currentMobilePhoneId;
   getAllMobilePhones(): Observable<mobilePhone[]> {
     // this.data = this.http.get<LoginMessage[]>(this._url);
     // console.log(this.data.Message)

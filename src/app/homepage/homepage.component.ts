@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PhonesService } from '../phones.service'
-import { mobilePhone } from "../interface/mobilePhone"
+import { PhonesService } from '../phones.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { mobilePhone } from "../interface/mobilePhone";
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +10,7 @@ import { mobilePhone } from "../interface/mobilePhone"
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(private phoneService: PhonesService) { }
+  constructor(private phoneService: PhonesService,private router:Router) { }
 
   ngOnInit() {
     this.phoneService.getBestSellingMobilePhones().subscribe(res =>
@@ -30,6 +31,14 @@ export class HomepageComponent implements OnInit {
       this.mobilePhones.push(newPhone);
     });
     console.log(this.mobilePhones)
+  }
+  loadDetailMobilePhone(phone){
+    console.log(phone)
+    this.phoneService.currentMobilePhoneId = phone.mobileId;
+    // console.log(this.phoneService.currentMobilePhoneId)
+
+    this.router.navigate(['/mobilePhone'])
+
   }
 
 }

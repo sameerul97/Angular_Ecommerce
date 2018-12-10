@@ -6,13 +6,14 @@
     </div>
   </div>
 </div>
-<app-best-selling></app-best-selling>
-
+<!-- <app-best-selling></app-best-selling> -->
 <div class="">
   <div style="text-align:center">
     <div class="container">
+      <div class="display-4 p-2 text-left">Best Selling</div>
+
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-3 p-2" *ngFor="let phone of mobilePhones">
+        <div class="col" *ngFor="let phone of mobilePhones" (click)="loadDetailMobilePhone(phone)">
           <!-- Card -->
           <div class="card">
             <!-- Card image -->
@@ -27,8 +28,8 @@
               <!-- <h5 class="">{{phone.mobileName}}</h5> -->
             </div>
             <div class="card-footer text-muted  ng-scope" ng-controller="myContrl" ng-init="id=3;quantity=4;price=150">
-              <span class="float-left mt-2">
-                <span>£{{phone.mobilePrice}}</span>
+              <span class="float-center mt-1">
+                <span>{{phone.mobilePrice}}</span>
               </span>
               <span class="float-right">
                 <a href="#!" class=" btn btn-info" ng-click="addToBasket(id,quantity,price)">

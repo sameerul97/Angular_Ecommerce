@@ -17,7 +17,11 @@ export class DetailPhoneComponent implements OnInit {
   public selectedColorVariant = "";
   public phonePrice = "";
   public phoneAvailability = "";
-  public currentMobileId ;
+  public currentMobileId;
+  public mobTopSpec = new TopSpec;
+  public topSpec = [];
+  public android : boolean = false;
+  public fullSpec = [];
   constructor(private route: ActivatedRoute,
     private router: Router, private phoneService: PhonesService) { }
   ngOnInit() {
@@ -56,11 +60,35 @@ export class DetailPhoneComponent implements OnInit {
       let value = tempColours[key];
       this.colorVariant.push(value);
     }
+
+    // topSpec
+    this.mobTopSpec.battery = res.topSpec.battery;
+    this.mobTopSpec.os = res.topSpec.os;
+    if (res.topSpec.os == "Android"){
+      this.android = true;
+    }
+    this.mobTopSpec.camera = res.topSpec.camera;
+    this.mobTopSpec.storage = res.topSpec.storage;
+    this.mobTopSpec.display = res.topSpec.display;
     // console.log(this.colorVariant);
+
+    var tempFullSpec = res.fullSpec;
+    
+    for (let key in tempFullSpec) {
+      // console.log(key)
+      let value = tempFullSpec[key];
+      // console.log(tempFullSpec[key]+":"+value)
+      this.fullSpec.push(key+": "+value);
+    }
+    // this.fullSpec.forEach(element => {
+    //   console.log(element)
+    // });
+    // console.log(this.fullSpec);
     // set the size variant into first value by default when loading
     this.selectedSizeVariant = this.sizeVariant[0];
     this.selectedColorVariant = this.colorVariant[0];
 
+    // setting Phone 
     this.phone.mobileId = res.mobileId;
     this.phone.mobileName = res.mobileName;
     this.phone.mobilePrice = res.mobilePrice;
@@ -68,11 +96,11 @@ export class DetailPhoneComponent implements OnInit {
     // console.log(this.phone);
   }
 
-  loadSelectedSize(size){
+  loadSelectedSize(size) {
     // console.log(size);
     this.selectedSizeVariant = size;
   }
-  loadSelectedColor(color){
+  loadSelectedColor(color) {
     // console.log(size);
     this.selectedColorVariant = color;
   }
@@ -82,4 +110,12 @@ export class Phone {
   mobileName: String
   mobilePrice: Number
   imageUrl: String
+}
+
+export class TopSpec {
+  battery: string
+  os: string
+  display: string
+  camera: string
+  storage: string
 }

@@ -1,49 +1,103 @@
-<div class="container">
-  <div class="row p-3">
-    <div class=" col-md-6">
-      <div class="imagePlaceHolder text-center">
-        <img src="{{phone.imageUrl}}">
+<div class="detailPageBody bg-light">
+  <div class="container bg-white">
+    <div class="row p-3">
+      <div class=" col-md-6">
+        <div class="imagePlaceHolder text-center">
+          <img src="{{phone.imageUrl}}">
+        </div>
+      </div>
+      <div class=" col-md-6 ">
+        <p class="font-weight-bold text-left text-uppercase">{{phone.mobileName}}</p>
+        <p class=" font-weight-bold text-left text-uppercase">Size :
+          <span class="font-weight-light text-capitalize">
+            {{selectedSizeVariant}}
+          </span>
+        </p>
+        <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1" *ngFor="let size of sizeVariant"
+          (click)="loadSelectedSize(size)">
+          {{size}}
+        </span>
+        <p class=" font-weight-bold text-left text-uppercase">Color :
+          <span class="font-weight-light text-capitalize">
+            {{selectedColorVariant}}
+          </span>
+        </p>
+        <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1 " *ngFor="let color of colorVariant"
+          (click)="loadSelectedColor(color)">
+          {{color}}
+        </span>
+        <p class="font-weight-bold text-left text-uppercase">Availability :
+          <span class="font-weight-light text-capitalize ">{{phoneAvailability}}</span>
+        </p>
+        <p class="font-weight-bold text-left text-uppercase">Price
+          <span class="font-weight-light text-capitalize">
+            £{{phonePrice}}
+          </span>
+        </p>
+        <button type="button" class="btn btn-primary font-weight-bold text-center text-uppercase shadow-lg" (click)="addToBasket(phone)">Add
+          to basket</button>
+
       </div>
     </div>
-    <div class=" col-md-6 ">
-      <p class="font-weight-bold text-left text-uppercase">{{phone.mobileName}}</p>
-      <p class=" font-weight-bold text-left text-uppercase">Size :
-        <span class="font-weight-light text-capitalize">
-          {{selectedSizeVariant}}
-        </span>
-      </p>
-      <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1" *ngFor="let size of sizeVariant"
-        (click)="loadSelectedSize(size)">
-        {{size}}
-      </span>
-      <p class=" font-weight-bold text-left text-uppercase">Color :
-        <span class="font-weight-light text-capitalize">
-          {{selectedColorVariant}}
-        </span>
-      </p>
-      <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1 " *ngFor="let color of colorVariant"
-        (click)="loadSelectedColor(color)">
-        {{color}}
-      </span>
-      <p class="font-weight-bold text-left text-uppercase">Availability :
-        <span class="font-weight-light text-capitalize ">{{phoneAvailability}}</span>
-      </p>
-      <p class="font-weight-bold text-left text-uppercase">Price
-        <span class="font-weight-light text-capitalize">
-          £{{phonePrice}}
-        </span>
-      </p>
-      <button type="button" class="btn btn-primary font-weight-bold text-center text-uppercase shadow-lg" (click)="addToBasket(phone)">Add to basket</button>
+    <div class="shadow p-3 mb-5 bg-light rounded">
+      <p class=" font-weight-light text-capitalize text-center">Top Spec</p>
 
+      <div class="row text-center p-2">
+        <div class="col">
+          <i class="fas fa-camera fa-2x"></i>
+          <p class="text-monospace font-weight-bold text-info">Camera</p>
+          <p class="font-weight-light"> {{mobTopSpec.camera}}</p>
+        </div>
+        <div class="col">
+          <i class="fas fa-battery-three-quarters fa-2x"></i>
+          <p class="text-monospace font-weight-bold text-info">Battery</p>
+          {{mobTopSpec.battery}}
+        </div>
+        <div *ngIf="android; else ios" class="col">
+          <i class="fab fa-android fa-2x"></i>
+          <p class="font-weight-light">OS</p>
+          {{mobTopSpec.os}}
+        </div>
+        <div class="col">
+          <i class="fas fa-hdd fa-2x"></i>
+          <p class="font-weight-light">Storage</p>
+          {{mobTopSpec.storage}}
+        </div>
+        <div class="col">
+          <i class="fas fa-mobile-alt fa-2x"></i>
+          <i class="far fa-mobile-android "></i>
+          <p class="font-weight-light">Display</p>
+          {{mobTopSpec.display}}
+        </div>
+      </div>
+    </div>
+    <ng-template #ios>
+      <div class="col col3">
+        <i class="fab fa-apple fa-2x"></i>
+        <p class="font-weight-light">OS</p>
+        {{mobTopSpec.os}}
+      </div>
+    </ng-template>
+
+
+    <div class="shadow p-3 mb-5 bg-light rounded">
+      <p class="font-weight-light text-capitalize text-center">Full Spec</p>
+      <table class="table table-striped">
+        <!-- <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead> -->
+        <tbody>
+          <tr *ngFor="let spec of fullSpec; let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{spec}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="m-2">
-      <div class="row">
-        <div class="col col1">Column 1</div>
-        <div class="col col2">Column 2</div>
-        <div class="col col3">Column 3</div>
-        <div class="col col4">Column 4</div>
-        <div class="col col5">Column 5</div>
-      </div>
-    </div>
 </div>

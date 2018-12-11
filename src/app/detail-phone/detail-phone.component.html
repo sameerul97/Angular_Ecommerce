@@ -1,3 +1,49 @@
-<p>
-  GREAT
-</p>
+<div class="container">
+  <div class="row p-3">
+    <div class=" col-md-6">
+      <div class="imagePlaceHolder text-center">
+        <img src="{{phone.imageUrl}}">
+      </div>
+    </div>
+    <div class=" col-md-6 ">
+      <p class="font-weight-bold text-left text-uppercase">{{phone.mobileName}}</p>
+      <p class=" font-weight-bold text-left text-uppercase">Size :
+        <span class="font-weight-light text-capitalize">
+          {{selectedSizeVariant}}
+        </span>
+      </p>
+      <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1" *ngFor="let size of sizeVariant"
+        (click)="loadSelectedSize(size)">
+        {{size}}
+      </span>
+      <p class=" font-weight-bold text-left text-uppercase">Color :
+        <span class="font-weight-light text-capitalize">
+          {{selectedColorVariant}}
+        </span>
+      </p>
+      <span class="btn btn-outline-primary font-weight-light text-capitalize mr-1 " *ngFor="let color of colorVariant"
+        (click)="loadSelectedColor(color)">
+        {{color}}
+      </span>
+      <p class="font-weight-bold text-left text-uppercase">Availability :
+        <span class="font-weight-light text-capitalize ">{{phoneAvailability}}</span>
+      </p>
+      <p class="font-weight-bold text-left text-uppercase">Price
+        <span class="font-weight-light text-capitalize">
+          £{{phonePrice}}
+        </span>
+      </p>
+      <button type="button" class="btn btn-primary font-weight-bold text-center text-uppercase shadow-lg" (click)="addToBasket(phone)">Add to basket</button>
+
+    </div>
+  </div>
+  <div class="m-2">
+      <div class="row">
+        <div class="col col1">Column 1</div>
+        <div class="col col2">Column 2</div>
+        <div class="col col3">Column 3</div>
+        <div class="col col4">Column 4</div>
+        <div class="col col5">Column 5</div>
+      </div>
+    </div>
+</div>

@@ -10,6 +10,8 @@ import { AllPhonesComponent } from './all-phones/all-phones.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BestSellingComponent } from './best-selling/best-selling.component';
 import { DetailPhoneComponent } from './detail-phone/detail-phone.component';
+import { FooterComponent } from './footer/footer.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { DetailPhoneComponent } from './detail-phone/detail-phone.component';
     AllPhonesComponent,
     HomepageComponent,
     BestSellingComponent,
-    DetailPhoneComponent
+    DetailPhoneComponent,
+    FooterComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

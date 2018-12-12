@@ -1,7 +1,16 @@
-img{
-    height: 400px;
+img {
+    height: 300px;
+    border: none;
 }
 
 .img-thumbnail{
     border: none;
+}
+
+.card{
+    transition: all 0.2s;
+}
+
+.card:hover{
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
 }

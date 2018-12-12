@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="shadow p-3 mb-5 bg-light rounded">
-      <p class=" font-weight-light text-capitalize text-center">Top Spec</p>
+      <p class=" font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Top Spec</p>
 
       <div class="row text-center p-2">
         <div class="col">
@@ -51,37 +51,37 @@
         <div class="col">
           <i class="fas fa-battery-three-quarters fa-2x"></i>
           <p class="text-monospace font-weight-bold text-info">Battery</p>
-          {{mobTopSpec.battery}}
+          <p class="font-weight-light"> {{mobTopSpec.battery}}</p>
         </div>
         <div *ngIf="android; else ios" class="col">
           <i class="fab fa-android fa-2x"></i>
-          <p class="font-weight-light">OS</p>
-          {{mobTopSpec.os}}
+          <p class="text-monospace font-weight-bold text-info">OS</p>
+          <p class="font-weight-light"> {{mobTopSpec.os}}</p>
         </div>
         <div class="col">
           <i class="fas fa-hdd fa-2x"></i>
-          <p class="font-weight-light">Storage</p>
-          {{mobTopSpec.storage}}
+          <p class="text-monospace font-weight-bold text-info">Storage</p>
+          <p class="font-weight-light"> {{mobTopSpec.storage}}</p>
         </div>
         <div class="col">
           <i class="fas fa-mobile-alt fa-2x"></i>
           <i class="far fa-mobile-android "></i>
-          <p class="font-weight-light">Display</p>
-          {{mobTopSpec.display}}
+          <p class="text-monospace font-weight-bold text-info">Display</p>
+          <p class="font-weight-light"> {{mobTopSpec.display}} </p>
         </div>
       </div>
     </div>
     <ng-template #ios>
       <div class="col col3">
         <i class="fab fa-apple fa-2x"></i>
-        <p class="font-weight-light">OS</p>
-        {{mobTopSpec.os}}
+        <p class="text-monospace font-weight-bold text-info">OS</p>
+        <p class="font-weight-light"> {{mobTopSpec.os}} </p>
       </div>
     </ng-template>
 
 
     <div class="shadow p-3 mb-5 bg-light rounded">
-      <p class="font-weight-light text-capitalize text-center">Full Spec</p>
+      <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Full Spec</p>
       <table class="table table-striped">
         <!-- <thead>
         <tr>
@@ -94,7 +94,7 @@
         <tbody>
           <tr *ngFor="let spec of fullSpec; let i = index">
             <th scope="row">{{i}}</th>
-            <td>{{spec}}</td>
+            <td style="color:rgba(58, 133, 191, 0.75);">{{spec}}</td>
           </tr>
         </tbody>
       </table>

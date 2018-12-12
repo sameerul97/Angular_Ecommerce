@@ -5,6 +5,7 @@ import { TestComponent } from './test/test.component'
 import { AllPhonesComponent } from './all-phones/all-phones.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { DetailPhoneComponent } from './detail-phone/detail-phone.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -16,15 +17,15 @@ const routes: Routes = [
     component: HomepageComponent
   },
   {
-    path: 'test',
-    component: TestComponent
+    path: 'notFound',
+    component: NotFoundComponent
   },
   {
     path: 'allPhones',
     component: AllPhonesComponent
   },
   {
-    path: 'mobilePhone',
+    path: 'mobilePhone/:mobileId',
     component: DetailPhoneComponent
   },
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,{scrollPositionRestoration: 'enabled'})
   ],
   exports: [RouterModule],
   declarations: []

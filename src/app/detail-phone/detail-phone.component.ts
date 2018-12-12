@@ -20,28 +20,30 @@ export class DetailPhoneComponent implements OnInit {
   public currentMobileId;
   public mobTopSpec = new TopSpec;
   public topSpec = [];
-  public android : boolean = false;
+  public android: boolean = false;
   public fullSpec = [];
   constructor(private route: ActivatedRoute,
     private router: Router, private phoneService: PhonesService) { }
   ngOnInit() {
     console.log(this.phoneService.currentMobilePhoneId)
     // this.sizeVariant = [12,213]
-    // let id = this.route.snapshot.paramMap.get('mobileId');
+    let id = this.route.snapshot.paramMap.get('mobileId');
     // let id = this.route.snapshot.queryParamMap.get('phone.mobileId');
-    // console.log("ID " + id);
+    console.log("ID " + id);
     // console.log("ID " + id.length);
+    var phoneId = parseInt(id);
+    // if (this.phoneService.currentMobilePhoneId == undefined) {
+    if (phoneId >= 100 && phoneId <= 130) {
+      this.phoneService.getMobilePhone(phoneId).subscribe(res =>
+        this.storeData(res)
+      );
 
-    if (this.phoneService.currentMobilePhoneId == undefined) {
-      console.log(this.phoneService.currentMobilePhoneId)
-      // if (this.phoneService.currentMobilePhoneId.length < 0) {
-      this.router.navigate(['/home'])
       // }
     }
     else {
-      this.phoneService.getMobilePhone(this.phoneService.currentMobilePhoneId).subscribe(res =>
-        this.storeData(res)
-      );
+      console.log(this.phoneService.currentMobilePhoneId)
+      // if (this.phoneService.currentMobilePhoneId.length < 0) {
+      this.router.navigate(['/notFound'])
     }
   }
   storeData(res) {
@@ -64,7 +66,7 @@ export class DetailPhoneComponent implements OnInit {
     // topSpec
     this.mobTopSpec.battery = res.topSpec.battery;
     this.mobTopSpec.os = res.topSpec.os;
-    if (res.topSpec.os == "Android"){
+    if (res.topSpec.os == "Android") {
       this.android = true;
     }
     this.mobTopSpec.camera = res.topSpec.camera;
@@ -73,12 +75,12 @@ export class DetailPhoneComponent implements OnInit {
     // console.log(this.colorVariant);
 
     var tempFullSpec = res.fullSpec;
-    
+
     for (let key in tempFullSpec) {
       // console.log(key)
       let value = tempFullSpec[key];
       // console.log(tempFullSpec[key]+":"+value)
-      this.fullSpec.push(key+": "+value);
+      this.fullSpec.push(key + ": " + value);
     }
     // this.fullSpec.forEach(element => {
     //   console.log(element)

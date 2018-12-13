@@ -15,7 +15,7 @@ export class PhonesService {
   
 
   constructor(private http_Var: HttpClient) { }
-  public authToken : string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NjE0Nzk2LCJleHAiOjE1NDQ2MTgzOTYsInN1YiI6InNhbWVlZXJ1bCJ9.ZZZUX1MvHT2U1bejI-BE5Nnx4I-RhAfpwyB4eFYu6GI"
+  public authToken : string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NjU1MDk0LCJleHAiOjE1NDQ2NTg2OTQsInN1YiI6InNhbWVlZXJ1bCJ9.pLXu5cHcMpwa5YEuSZiGPEIZoIA9r2axwZ-sPeJJtqc"
   public currentMobilePhoneId;
   getAllMobilePhones(): Observable<mobilePhone[]> {
     // this.data = this.http.get<LoginMessage[]>(this._url);
@@ -36,7 +36,17 @@ export class PhonesService {
     return this.http_Var.get<mobilePhone[]>("http://localhost:3000/bestSelling", { headers }
     )
   }
+  getMostlyWishedMobilePhones(): Observable<mobilePhone[]> {
 
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/mostlyWished"
+    )
+  }
+  mostlyReviewed
+  getMostlyReviewedMobilePhones(): Observable<mobilePhone[]> {
+
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/mostlyReviewed"
+    )
+  }
   getMobilePhone(mobileId): Observable<mobilePhone[]> {
     // this.data = this.http.get<LoginMessage[]>(this._url);
     // console.log(this.data.Message)

@@ -1,7 +1,6 @@
-<!-- <app-best-selling></app-best-selling> -->
 <div style="text-align:center">
   <div class="container">
-    <div class="display-4 p-2 text-center">Best Selling</div>
+    <div class="display-4 p-2 text-center">Mostly Reviewed</div>
 
     <div class="row">
       <div class="col" *ngFor="let phone of mobilePhones" [routerLink]="['/mobilePhone', phone.mobileId]">
@@ -26,7 +25,7 @@
               <a class=" btn btn-info text-white" ng-click="addToBasket(id,quantity,price)">
                 <span>
                   <i class="lnr lnr-cart"></i>
-                </span> Select Phone</a>
+                </span>Select Phone</a>
             </span>
           </div>
         </div>

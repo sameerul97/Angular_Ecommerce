@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PhonesService } from '../phones.service';
+import { BasketService } from '../basket.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class DetailPhoneComponent implements OnInit {
   public android: boolean = false;
   public fullSpec = [];
   constructor(private route: ActivatedRoute,
-    private router: Router, private phoneService: PhonesService) { }
+    private router: Router, private phoneService: PhonesService, private basketService : BasketService) { }
   ngOnInit() {
     console.log(this.phoneService.currentMobilePhoneId)
     // this.sizeVariant = [12,213]
@@ -45,6 +46,11 @@ export class DetailPhoneComponent implements OnInit {
       // if (this.phoneService.currentMobilePhoneId.length < 0) {
       this.router.navigate(['/notFound'])
     }
+  }
+  addToBasket(){
+    var userId = "samere34343242342";
+    this.basketService.addToBasket(userId,
+      this.phone.mobileId,this.phone.mobileName,this.phone.mobilePrice);
   }
   storeData(res) {
     // console.log(res.mobileData);

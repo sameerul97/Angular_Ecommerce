@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -12,6 +12,11 @@ import { BestSellingComponent } from './best-selling/best-selling.component';
 import { DetailPhoneComponent } from './detail-phone/detail-phone.component';
 import { FooterComponent } from './footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MostlyWishedComponent } from './mostly-wished/mostly-wished.component';
+import { MostlyReviewedComponent } from './mostly-reviewed/mostly-reviewed.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +28,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BestSellingComponent,
     DetailPhoneComponent,
     FooterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    RegisterComponent,
+    MostlyWishedComponent,
+    MostlyReviewedComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule
   ],

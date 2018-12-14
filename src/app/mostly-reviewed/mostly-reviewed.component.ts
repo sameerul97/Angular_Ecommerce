@@ -11,7 +11,6 @@ import { mobilePhone } from "../interface/mobilePhone";
 export class MostlyReviewedComponent implements OnInit {
 
   constructor(private phoneService: PhonesService,private router:Router) { }
-
   ngOnInit() {
     this.phoneService.getMostlyReviewedMobilePhones().subscribe(res =>
       this.storeData(res)

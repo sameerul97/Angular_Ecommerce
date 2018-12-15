@@ -16,7 +16,7 @@ export class PhonesService {
 
 
   constructor(private http_Var: HttpClient,
-    private authservice: AuthService ) { }
+    private authservice: AuthService) { }
   public authToken: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NjU1MDk0LCJleHAiOjE1NDQ2NTg2OTQsInN1YiI6InNhbWVlZXJ1bCJ9.pLXu5cHcMpwa5YEuSZiGPEIZoIA9r2axwZ-sPeJJtqc"
   public currentMobilePhoneId;
 
@@ -86,6 +86,8 @@ export class PhonesService {
     )
   }
 
+
+
   // returns all rated Items
   // getMyRatedItems(): Observable<mobilePhone[]> {
   //   const userID = localStorage.getItem('userId');
@@ -108,21 +110,11 @@ export class PhonesService {
   }
 
   // Updating a profile
-  updateProfile(userId, username){
+  updateProfile(userId, username) {
     const body = new HttpParams()
       .set('userId', userId)
       .set('name', username)
     var storedToken = localStorage.getItem('token');
-
-    //     console.log(this.http_Var.post <UserCredential> ("http://localhost:3000/login",
-    //     body.toString(),
-    //     {
-    //       headers: new HttpHeaders()
-    //         .set('Content-Type', 'application/x-www-form-urlencoded')
-    //     }
-    //   )
-    // );
-    // Register 
     return this.http_Var.post("http://localhost:3000/updateProfile",
       body.toString(),
       {

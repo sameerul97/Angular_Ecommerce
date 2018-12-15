@@ -19,6 +19,7 @@ import { MostlyReviewedComponent } from './mostly-reviewed/mostly-reviewed.compo
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ReLoginComponent } from './re-login/re-login.component';
+import { BasketComponent } from './basket/basket.component';
 
 
 export function tokenGetter() {
@@ -40,7 +41,8 @@ export function tokenGetter() {
     MostlyWishedComponent,
     MostlyReviewedComponent,
     UserDashboardComponent,
-    ReLoginComponent
+    ReLoginComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,

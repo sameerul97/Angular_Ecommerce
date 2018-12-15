@@ -2,6 +2,12 @@
   <div class="container bg-white">
     <div class="row p-3">
       <div class=" col-md-6">
+        <div *ngIf="success?.length >0 ;">
+          <div class="alert alert-success" role="alert">
+            {{success}}
+          </div>
+        </div>
+
         <div class="imagePlaceHolder text-center">
           <img src="{{phone.imageUrl}}">
         </div>

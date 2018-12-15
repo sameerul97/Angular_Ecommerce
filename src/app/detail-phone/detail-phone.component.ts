@@ -26,6 +26,7 @@ export class DetailPhoneComponent implements OnInit {
   public topSpec = [];
   public android: boolean = false;
   public fullSpec = [];
+  public success = "";
   constructor(private route: ActivatedRoute,
     private router: Router, private phoneService: PhonesService,
     private loginService: LoginService, private basketService: BasketService,
@@ -55,10 +56,12 @@ export class DetailPhoneComponent implements OnInit {
   }
   addToBasket() {
     if (this.loginService.isLoggedIn()) {
-      console.log("YO FAM")
+      console.log("YO FAM");
       var userId = localStorage.getItem("userId");
-      this.basketService.addToBasket(userId,
-        this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice);
+      this.basketService.postItemInMyBasket(userId,
+        this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice,this.phone.imageUrl).subscribe(res =>
+          console.log(res));
+          this.success = "Successfully Added to basket";
     }
     else {
       this.reloginComponent.show();

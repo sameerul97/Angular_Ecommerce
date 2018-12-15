@@ -12,6 +12,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { CanActivate } from '@angular/router';
 
 import { AuthGuardService } from './auth-guard.service';
+import { BasketComponent } from './basket/basket.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'userDashboard', component: UserDashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'basket', component: BasketComponent, canActivate: [AuthGuardService] },
   { path: '**', component: TestComponent }
 
 ];

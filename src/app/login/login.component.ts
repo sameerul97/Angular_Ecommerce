@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LoginService } from '../login.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,18 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(private LoginService: LoginService,
-    private router: Router) { }
+    private router: Router,private route: ActivatedRoute) { }
   public user = new User;
   public serverResponse = "";
+  public loginMessage = "";
   ngOnInit() {
     this.user.email = "";
     this.user.password = "";  
+    this.loginMessage = this.route.snapshot.paramMap.get('message');
+    if (this.loginMessage){
+      console.log(this.loginMessage)
+    }
+
   }
   logIn(){
     console.log(this.user.email);
@@ -38,6 +45,8 @@ export class LoginComponent implements OnInit {
       // Get the token and store it 
       this.serverResponse = response.Message;
       localStorage.setItem("userId", response.userId);
+      localStorage.setItem("useremail", response.email);
+      localStorage.setItem("userName", response.name);
       // console.log(response);
       localStorage.setItem("token", "Bearer " + response.token);
       // console.log(response.token);

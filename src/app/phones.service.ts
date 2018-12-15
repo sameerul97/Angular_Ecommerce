@@ -4,6 +4,7 @@ import { mobilePhone } from './interface/mobilePhone';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -14,7 +15,8 @@ export class PhonesService {
 
 
 
-  constructor(private http_Var: HttpClient) { }
+  constructor(private http_Var: HttpClient,
+    private authservice: AuthService ) { }
   public authToken: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfSWQiOiI1YzAwNjFmNWI0NWZlMDBjYTlmYzFjNzEiLCJuYW1lIjoic2FtZWVlcnVsIiwiZW1haWwiOiJzYW1lZXJ1bDk3QGdtYWlsLmNvbTQifSwiaWF0IjoxNTQ0NjU1MDk0LCJleHAiOjE1NDQ2NTg2OTQsInN1YiI6InNhbWVlZXJ1bCJ9.pLXu5cHcMpwa5YEuSZiGPEIZoIA9r2axwZ-sPeJJtqc"
   public currentMobilePhoneId;
 
@@ -99,6 +101,7 @@ export class PhonesService {
   getProfile() {
     var storedToken = localStorage.getItem('token');
     let headers = new HttpHeaders().set('Authorization', storedToken);
+    console.log(headers);
     return this.http_Var.get("http://localhost:3000/profile",
       { headers }
     )

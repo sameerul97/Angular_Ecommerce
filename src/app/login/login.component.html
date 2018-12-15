@@ -1,12 +1,15 @@
 <div class="container" style="height:80vh">
   <div class="text-center">
+
     <form class="text-center form-signin" (ngSubmit)="logIn()" #userLoginForm="ngForm">
       <div class="form-group">
-
+        <div *ngIf="loginMessage" class="alert alert-primary" role="alert">
+          {{loginMessage}}
+        </div>
         <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
 
         <label for="name">Username*</label>
-        <input type="text" class="form-control" id="username" required [(ngModel)]="user.email" name="username" #name="ngModel">
+        <input type="text" class="form-control" required [(ngModel)]="user.email" name="username" #name="ngModel">
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Username is required
         </div>
@@ -14,7 +17,7 @@
 
       <div class="form-group">
         <label for="password">Password*</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password"
+        <input type="password" class="form-control" required [(ngModel)]="user.password" name="password"
           #password="ngModel">
         <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
           Password is required

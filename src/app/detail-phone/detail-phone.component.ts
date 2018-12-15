@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PhonesService } from '../phones.service';
 import { BasketService } from '../basket.service';
+import { LoginService } from '../login.service';
+import { ReLoginComponent } from '../re-login/re-login.component';
 
 
 @Component({
+  providers: [ReLoginComponent],
   selector: 'app-detail-phone',
   templateUrl: './detail-phone.component.html',
   styleUrls: ['./detail-phone.component.css']
@@ -24,7 +27,9 @@ export class DetailPhoneComponent implements OnInit {
   public android: boolean = false;
   public fullSpec = [];
   constructor(private route: ActivatedRoute,
-    private router: Router, private phoneService: PhonesService, private basketService : BasketService) { }
+    private router: Router, private phoneService: PhonesService,
+    private loginService: LoginService, private basketService: BasketService,
+    private reloginComponent: ReLoginComponent) { }
   ngOnInit() {
     console.log(this.phoneService.currentMobilePhoneId)
     // this.sizeVariant = [12,213]
@@ -33,6 +38,7 @@ export class DetailPhoneComponent implements OnInit {
     console.log("ID " + id);
     // console.log("ID " + id.length);
     var phoneId = parseInt(id);
+    console.log(this.basketService.itemsToOrder);
     // if (this.phoneService.currentMobilePhoneId == undefined) {
     if (phoneId >= 100 && phoneId <= 130) {
       this.phoneService.getMobilePhone(phoneId).subscribe(res =>
@@ -47,10 +53,19 @@ export class DetailPhoneComponent implements OnInit {
       this.router.navigate(['/notFound'])
     }
   }
-  addToBasket(){
-    var userId = "samere34343242342";
-    this.basketService.addToBasket(userId,
-      this.phone.mobileId,this.phone.mobileName,this.phone.mobilePrice);
+  addToBasket() {
+    if (this.loginService.isLoggedIn()) {
+      console.log("YO FAM")
+      var userId = localStorage.getItem("userId");
+      this.basketService.addToBasket(userId,
+        this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice);
+    }
+    else {
+      this.reloginComponent.show();
+      console.log("YO FAM 1")
+
+    }
+
   }
   storeData(res) {
     // console.log(res.mobileData);

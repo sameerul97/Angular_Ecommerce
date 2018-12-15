@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { PhonesService } from '../phones.service';
-
+import { ReLoginComponent } from '../re-login/re-login.component';
+import { LoginService } from '../login.service';
 @Component({
+  providers: [ReLoginComponent],
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor(private phoneService: PhonesService) { }
+  constructor(private phoneService: PhonesService,
+    private ReLoginComponent: ReLoginComponent,
+    private loginService: LoginService) { }
   public myUsername; myEmail;
   public orders = [];
   public wishedItems = [];
@@ -17,19 +21,38 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit() {
     this.phoneService.getProfile().subscribe(response => this.loadProfile(response));
   }
-  loadProfile(response){
+  getProfile() {
+    if (this.loginService.isLoggedIn()) {
+      this.phoneService.getProfile().subscribe(response => this.loadProfile(response));
+    }
+    else {
+      this.ReLoginComponent.show();
+    }
+
+  }
+  loadProfile(response) {
     console.log(response);
     this.myUsername = response.name;
     this.myEmail = response.email;
   }
-  updateProfile(){
-    console.log("Update profile");
-    console.log(localStorage.getItem("userId"));
-    var userId = localStorage.getItem("userId");
-    this.phoneService.updateProfile(userId,this.myUsername).subscribe(res=>console.log(res));
+  updateProfile() {
+    if (this.loginService.isLoggedIn()) {
+      console.log("Update profile");
+      console.log(localStorage.getItem("userId"));
+      var userId = localStorage.getItem("userId");
+      this.phoneService.updateProfile(userId, this.myUsername).subscribe(res => console.log(res));
+    }
+    else {
+      this.ReLoginComponent.show();
+    }
   }
   getOrders() {
-    this.phoneService.getMyOrders().subscribe(response => this.loadOrders(response));
+    if (this.loginService.isLoggedIn()) {
+      this.phoneService.getMyOrders().subscribe(response => this.loadOrders(response));
+    }
+    else {
+      this.ReLoginComponent.show();
+    }
   }
   loadOrders(response) {
     console.log(response.Orders[5]);
@@ -37,7 +60,12 @@ export class UserDashboardComponent implements OnInit {
   }
   // Get refers to getting from the server
   getWishedItems() {
-    this.phoneService.getMyWishedItems().subscribe(response => this.loadWishedItems(response));
+    if (this.loginService.isLoggedIn()) {
+      this.phoneService.getMyWishedItems().subscribe(response => this.loadWishedItems(response));
+    }
+    else {
+      this.ReLoginComponent.show();
+    }
   }
   // Loading refers to load the fetched data into front end
   loadWishedItems(response) {

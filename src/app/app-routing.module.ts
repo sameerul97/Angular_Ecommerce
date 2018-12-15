@@ -9,6 +9,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { CanActivate } from '@angular/router';
+
+import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -18,7 +21,7 @@ const routes: Routes = [
   { path: 'mobilePhone/:mobileId', component: DetailPhoneComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'userDashboard', component: UserDashboardComponent },
+  { path: 'userDashboard', component: UserDashboardComponent, canActivate: [AuthGuardService] },
   { path: '**', component: TestComponent }
 
 ];

@@ -17,7 +17,13 @@ import { RegisterComponent } from './register/register.component';
 import { MostlyWishedComponent } from './mostly-wished/mostly-wished.component';
 import { MostlyReviewedComponent } from './mostly-reviewed/mostly-reviewed.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { ReLoginComponent } from './re-login/re-login.component';
 
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,13 +39,19 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     RegisterComponent,
     MostlyWishedComponent,
     MostlyReviewedComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    ReLoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

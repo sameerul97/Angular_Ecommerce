@@ -14,10 +14,14 @@ export class BasketComponent implements OnInit {
     private loginService: LoginService,
     private phoneService: PhonesService) { }
 
+  public basketItems = [];  
   ngOnInit() {
     if(this.loginService.isLoggedIn()){
-      this.basketService.getItemsInMyBasket().subscribe(res=>console.log(res));
+      this.basketService.getItemsInMyBasket().subscribe(res=> this.loadBasket(res));
     }
+  }
+  loadBasket(res){
+    this.basketItems = res.basketItems;
   }
 
 }

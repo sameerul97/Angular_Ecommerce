@@ -1,3 +1,28 @@
-<p>
-  basket works!
-</p>
+<!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> -->
+<div class="container text-center">
+  <div class="row" *ngIf="basketItems?.length > 0 ; else noItems">
+    <div class="col-6 col-md-4 pt-2 pb-2" *ngFor="let item of basketItems">
+      <div class="card">
+        <div class="card-header text-primary" [routerLink]="['/mobilePhone', item.mobileId]">
+          {{item.mobileName}}
+        </div>
+        <div class="view overlay">
+          <img class="img-thumbnail" src="{{ item.mobileImageUrl}}" alt="Card image cap">
+        </div>
+        <div class="card-body">
+          <span class="text-primary font-weight-light ">£{{item.mobilePrice}}</span>
+          <div>
+            <a class=" btn btn-info text-white" [routerLink]="['/mobilePhone', item.mobileId]">Buy Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noItems>
+    <div class="container">
+      <h5 class=display-4>No items =(</h5>
+    </div>
+  </ng-template>
+</div>
+<!-- </div> -->

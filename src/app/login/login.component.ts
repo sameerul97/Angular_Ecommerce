@@ -12,7 +12,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(private LoginService: LoginService,
-    private router: Router,private route: ActivatedRoute) { }
+    private router: Router,private route: ActivatedRoute,) { }
   public user = new User;
   public serverResponse = "";
   public loginMessage = "";

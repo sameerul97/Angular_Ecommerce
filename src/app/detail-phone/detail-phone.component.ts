@@ -59,14 +59,12 @@ export class DetailPhoneComponent implements OnInit {
       console.log("YO FAM");
       var userId = localStorage.getItem("userId");
       this.basketService.postItemInMyBasket(userId,
-        this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice,this.phone.imageUrl).subscribe(res =>
+        this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice, this.phone.imageUrl).subscribe(res =>
           console.log(res));
-          this.success = "Successfully Added to basket";
+      this.success = "Successfully Added to basket";
     }
     else {
       this.reloginComponent.show();
-      console.log("YO FAM 1")
-
     }
 
   }
@@ -121,7 +119,16 @@ export class DetailPhoneComponent implements OnInit {
     this.phone.imageUrl = res.imageUrl;
     // console.log(this.phone);
   }
+  addToWishList(mobileId) {
+    if (this.loginService.isLoggedIn()) {
+      console.log(mobileId);
+      this.phoneService.addToMyWishList(mobileId).subscribe(res => console.log(res))
+      this.success = "Added to wish list";
+    } else {
+      this.reloginComponent.show();
+    }
 
+  }
   loadSelectedSize(size) {
     // console.log(size);
     this.selectedSizeVariant = size;

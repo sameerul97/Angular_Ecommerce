@@ -12,13 +12,32 @@ export class NavbarComponent implements OnInit {
   constructor(private loginService: LoginService,
     private basketService: BasketService) { }
   public noOfItemsInBasket;
+  public userName;
+  public basketItems: basketItem[];
   ngOnInit() {
-    this.basketService.getItemsInMyBasket().subscribe(res=> this.setNoOfItems(res));
+    if (this.loginService.isLoggedIn()) {
+      this.basketService.getItemsInMyBasket().subscribe(res => this.setNoOfItems(res));
+      this.userName = localStorage.getItem("userName")
+    }
   }
-  setNoOfItems(res){
-    this.noOfItemsInBasket = res.basketItems.length;
+  setNoOfItems(res) {
+    // console.log(res);
+    var lengthNum = 0;
+    this.basketItems = res.basketItems;
+    this.basketItems.forEach(element => {
+      lengthNum = lengthNum + 1
+    });
+    this.noOfItemsInBasket = lengthNum;
+    console.log(this.noOfItemsInBasket);
   }
-  signOut(){
+  signOut() {
     this.loginService.signMeOut();
   }
+}
+export class basketItem {
+  userId: string
+  mobileId: number
+  mobileName: string
+  mobilePrice: number
+  mobileImageUrl: string
 }

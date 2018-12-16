@@ -25,9 +25,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/allPhones">All Phones</a>
         </li>
-        <li class="nav-item" *ngIf="loginService.isLoggedIn()">
+        <!-- <li class="nav-item" *ngIf="loginService.isLoggedIn()">
           <a class="nav-link" routerLink="/userDashboard">Dashboard</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" routerLink="/test">About</a>
         </li>
@@ -37,7 +37,19 @@
           <a class="nav-link" (click)="signOut()" routerLink="/home">Sign Out</a>
         </li> -->
       </ul>
+
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" *ngIf="loginService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{userName}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="nav-link text-dark" routerLink="/userDashboard">My Dashboard</a>
+            <!-- <a class="nav-link text-dark" routerLink="/basket">My Basket
+              <span class="badge badge-light">{{noOfItemsInBasket}}</span></a> -->
+          </div>
+        </li>
         <li class="nav-item" *ngIf="!loginService.isLoggedIn()">
           <a class="nav-link" routerLink="/register">Register</a>
         </li>
@@ -46,7 +58,8 @@
         </li>
         <li class="nav-item" *ngIf="loginService.isLoggedIn()">
           <a class="nav-link" routerLink="/basket">My Basket
-            <span class="badge badge-light">{{noOfItemsInBasket}}</span></a>
+            <!-- <span class="badge badge-light">{{noOfItemsInBasket}}</span> -->
+          </a>
         </li>
 
         <li class="nav-item" *ngIf="loginService.isLoggedIn()">

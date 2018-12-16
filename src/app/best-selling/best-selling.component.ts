@@ -26,7 +26,7 @@ export class BestSellingComponent implements OnInit {
         mobileId: phone.mobileId,
         mobileName: phone.mobileName,
         mobilePrice: phone.mobilePrice,
-        mobileImage: phone.mobileImage
+        mobileImageUrl: phone.mobileImageUrl
       };
       this.mobilePhones.push(newPhone);
     });

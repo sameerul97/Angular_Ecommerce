@@ -1,3 +1,39 @@
+<div class="m-2 bg-light">
+  <div class="container">
+
+      <div class="row">
+          <div class="col">
+            <div class="p-3 mb-2 text-center">
+              <button type="button" class="btn btn-outline-info m-1">Samsung</button>
+              <button type="button" class="btn btn-outline-info m-1">Apple</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3 mb-2 text-white">
+      
+              <div class="dropdown  text-left">
+                <label class="text-body pr-1">Sort By</label>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Mix
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" (click)="getLowToHigh()">Low to High</a>
+                  <a class="dropdown-item" (click)="getHighToLow()">High to Low</a>
+                  <a class="dropdown-item" (click)="getMostlyReviewed()">Mostly Reviewed</a>
+                  <a class="dropdown-item" (click)="getBestSelling()">Best Selling</a>
+                </div>
+              </div>
+      
+            </div>
+      
+          </div>
+        </div>
+  </div>
+
+
+</div>
+
 <div style="text-align:center">
   <div class="container">
     <div class="row">
@@ -6,7 +42,7 @@
         <div class="card">
           <!-- Card image -->
           <div class="view overlay">
-            <img class="img-thumbnail" src="{{ phone.mobileImage}}" alt="Card image cap">
+            <img class="img-thumbnail" src="{{ phone.mobileImageUrl}}" alt="Card image cap">
 
           </div>
           <div class="card-body">
@@ -17,7 +53,7 @@
           </div>
           <div class="card-footer text-muted  ng-scope" ng-controller="myContrl" ng-init="id=3;quantity=4;price=150">
             <span class="float-left mt-2">
-              <span>£{{phone.mobilePrice}}</span>
+              <span>{{phone.mobilePrice}}</span>
             </span>
             <span class="float-right">
               <a [routerLink]="['/mobilePhone', phone.mobileId]" class=" btn btn-info" ng-click="addToBasket(id,quantity,price)">

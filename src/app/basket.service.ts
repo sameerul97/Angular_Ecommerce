@@ -23,10 +23,10 @@ export class BasketService {
     orderItems.mobileImageUrl = mobileImageUrl;
     this.itemsToOrder.push(orderItems);
 
-    console.log(this.itemsToOrder);
-    this.itemsToOrder.forEach(element => {
-      console.log(element);
-    });
+    // console.log(this.itemsToOrder);
+    // this.itemsToOrder.forEach(element => {
+    //   console.log(element);
+    // });
   }
   // get items in basket
   getItemsInMyBasket(): Observable<mobilePhone[]> {
@@ -52,13 +52,36 @@ export class BasketService {
 
     // let headers = new HttpHeaders().set('Authorization',
     //   token);
-    return this.http_Var.post("http://localhost:3000/basket/", 
-    body.toString(),
+    return this.http_Var.post("http://localhost:3000/basket/",
+      body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
           .set('Authorization', storedToken)
 
+      }
+    )
+  }
+
+  deleteItemInMyBasket(itemId) {
+    const NoteId = new HttpParams()
+      .set('basketItemId', itemId);
+
+    var storedToken = localStorage.getItem('token');
+    // let headers = new HttpHeaders().set('Authorization', storedToken);
+    //     console.log(this.http_Var.post <UserCredential> ("http://localhost:3000/login",
+    //     body.toString(),
+    //     {
+    //       headers: new HttpHeaders()
+    //         .set('Content-Type', 'application/x-www-form-urlencoded')
+    //     }
+    //   )
+    // );
+    return this.http_Var.delete("http://localhost:3000/basket/" + itemId,
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken),
       }
     )
   }

@@ -10,7 +10,7 @@ import { mobilePhone } from "../interface/mobilePhone";
 })
 export class MostlyWishedComponent implements OnInit {
 
-  constructor(private phoneService: PhonesService,private router:Router) { }
+  constructor(private phoneService: PhonesService, private router: Router) { }
 
   ngOnInit() {
     this.phoneService.getMostlyWishedMobilePhones().subscribe(res =>
@@ -26,13 +26,13 @@ export class MostlyWishedComponent implements OnInit {
         mobileId: phone.mobileId,
         mobileName: phone.mobileName,
         mobilePrice: phone.mobilePrice,
-        mobileImage: phone.mobileImage
+        mobileImageUrl: phone.mobileImageUrl
       };
       this.mobilePhones.push(newPhone);
     });
     console.log(this.mobilePhones)
   }
-  loadDetailMobilePhone(phone){
+  loadDetailMobilePhone(phone) {
     console.log(phone)
     this.phoneService.currentMobilePhoneId = phone.mobileId;
     // console.log(this.phoneService.currentMobilePhoneId)

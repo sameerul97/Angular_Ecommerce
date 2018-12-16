@@ -47,8 +47,19 @@ export class PhonesService {
 
   // Returns mostly reviwewd mobile phones
   getMostlyReviewedMobilePhones(): Observable<mobilePhone[]> {
-
     return this.http_Var.get<mobilePhone[]>("http://localhost:3000/mostlyReviewed"
+    )
+  }
+
+  // Returns low to high by price mobile phones
+  getLowToHighMobilePhones(): Observable<mobilePhone[]> {
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/lowToHigh"
+    )
+  }
+
+  // Returns mostly reviwewd mobile phones
+  getHighToLowobilePhones(): Observable<mobilePhone[]> {
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/highToLow"
     )
   }
 
@@ -61,6 +72,30 @@ export class PhonesService {
     //   "Bearer " + this.authToken);
 
     return this.http_Var.get<mobilePhone[]>("http://localhost:3000/getPhone/" + mobileId
+    )
+  }
+
+  orderPhone(mobile){
+    const userID = localStorage.getItem('userId');
+    // const token = localStorage.getItem('token');
+    const body = new HttpParams()
+      .set('userId', userID)
+      .set('mobileId', mobile.mobileId)
+      .set('mobileName', mobile.mobileName)
+      .set('mobilePrice', mobile.mobilePrice)
+      .set('mobileImageUrl', mobile.mobileImageUrl)
+    var storedToken = localStorage.getItem('token');
+
+    // let headers = new HttpHeaders().set('Authorization',
+    //   token);
+    return this.http_Var.post("http://localhost:3000/orderPhone/", 
+    body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken)
+
+      }
     )
   }
 
@@ -86,8 +121,24 @@ export class PhonesService {
     )
   }
 
+  
+  // returns all wished Items
+  addToMyWishList(mobileId) {
+    var userId = localStorage.getItem("userId");
+    const body = new HttpParams()
+      .set('userId', userId)
+      .set('mobileId', mobileId)
+    var storedToken = localStorage.getItem('token');
+    return this.http_Var.post("http://localhost:3000/myWishedProduct",
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken)
 
-
+      }
+    )
+  }
   // returns all rated Items
   // getMyRatedItems(): Observable<mobilePhone[]> {
   //   const userID = localStorage.getItem('userId');

@@ -55,8 +55,9 @@ export class UserDashboardComponent implements OnInit {
     }
   }
   loadOrders(response) {
-    console.log(response.Orders[5]);
-    this.orders.push(response.Orders[5]);
+    this.orders = [];
+    console.log(response.Orders);
+    this.orders =response.Orders;
   }
   // Get refers to getting from the server
   getWishedItems() {
@@ -73,6 +74,7 @@ export class UserDashboardComponent implements OnInit {
     this.wishedItems = response.result;
     console.log(this.wishedItems);
   }
+
 
   // getRatedItems(){
   //   this.phoneService.getMyRatedItems().subscribe(response=> this.loadRatedItems(response));

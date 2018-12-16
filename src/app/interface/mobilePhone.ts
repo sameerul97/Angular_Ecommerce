@@ -3,6 +3,6 @@ export interface mobilePhone {
     mobileId: Number,
     mobileName : String,
     mobilePrice : Number,
-    mobileImage : String
+    mobileImageUrl : String
 }
  

@@ -3,6 +3,7 @@ import { BasketService } from '../basket.service';
 import { LoginService } from '../login.service';
 import { PhonesService } from '../phones.service';
 import { ReLoginComponent } from '../re-login/re-login.component';
+import { mobilePhone } from '../interface/mobilePhone';
 declare var jQuery: any;
 @Component({
   providers: [ReLoginComponent],
@@ -18,16 +19,22 @@ export class BasketComponent implements OnInit {
     private reLoginComponent: ReLoginComponent) { }
 
   public basketItems = [];
-  public itemToOrder = "";
+  public itemToOrder: mobilePhone;
   public success = "";
   public selectedBasketItem = ""
   ngOnInit() {
     if (this.loginService.isLoggedIn()) {
+      // this.itemToOrder.mobileId = 0;
+      // this.itemToOrder.mobileName ="";
+      // this.itemToOrder.mobileImageUrl = "";
+      // this.itemToOrder.mobilePrice = 0;
       this.basketService.getItemsInMyBasket().subscribe(res => this.loadBasket(res));
     }
   }
   loadBasket(res) {
-    this.basketItems = res.basketItems;
+    if (res.basketItems != "None") {
+      this.basketItems = res.basketItems;
+    }
     console.log(this.basketItems);
   }
 
@@ -39,7 +46,7 @@ export class BasketComponent implements OnInit {
       jQuery("#confirmationModal").modal('hide');
       this.success = "Success, Your order has been placed =)";
       console.log(this.success)
-      this.basketService.deleteItemInMyBasket(this.selectedBasketItem).subscribe(res=> this.ngOnInit())
+      this.basketService.deleteItemInMyBasket(this.selectedBasketItem).subscribe(res => this.ngOnInit())
     }
     else {
       this.reLoginComponent.show();

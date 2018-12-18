@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   }
   //   this.phoneService.getAllMobilePhones()
 
-  title = 'app';
+  title = 'Angular Store';
   // public mobilePhones: mobilePhone[] = [];
   // storeData(mobilePhoneArr) {
   //   // console.log(mobilePhoneArr.result);

@@ -33,6 +33,20 @@ export class LoginService {
       }
     )
   }
+  register(name,email,password) {
+
+    const body = new HttpParams()
+      .set('name', name)
+      .set('email', email)
+      .set('password', password);
+    return this.http_Var.post("http://localhost:3000/register/",
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    )
+  }
 
   isLoggedIn(): boolean {
     // Checking if the token exists or checking the expiration of the token

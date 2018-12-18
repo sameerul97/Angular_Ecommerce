@@ -11,7 +11,7 @@ export class AuthGuardService {
   canActivate(): boolean {
     // isAutheticated returns true if the token is expired else if the token is valid it returns false  
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/login', { message: "Please Log in" }]);
+      this.router.navigate(['/login', { message: "Log in to continue using" }]);
       return false;
       // false means its not autheticated yet
     }

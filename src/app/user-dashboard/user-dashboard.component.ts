@@ -55,9 +55,12 @@ export class UserDashboardComponent implements OnInit {
     }
   }
   loadOrders(response) {
-    this.orders = [];
-    console.log(response.Orders);
-    this.orders =response.Orders;
+    if (response.Orders != "None") {
+      this.orders = [];
+      console.log(response.Orders);
+      this.orders = response.Orders;
+    }
+
   }
   // Get refers to getting from the server
   getWishedItems() {

@@ -9,7 +9,7 @@ import { BasketService } from '../basket.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private loginService: LoginService,
+  constructor(public loginService: LoginService,
     private basketService: BasketService) { }
   public noOfItemsInBasket;
   public userName;
@@ -22,13 +22,13 @@ export class NavbarComponent implements OnInit {
   }
   setNoOfItems(res) {
     // console.log(res);
-    var lengthNum = 0;
+    // var lengthNum = 0;
     this.basketItems = res.basketItems;
-    this.basketItems.forEach(element => {
-      lengthNum = lengthNum + 1
-    });
-    this.noOfItemsInBasket = lengthNum;
-    console.log(this.noOfItemsInBasket);
+    // this.basketItems.forEach(element => {
+    //   lengthNum = lengthNum + 1
+    // });
+    // this.noOfItemsInBasket = lengthNum;
+    // console.log(this.noOfItemsInBasket);
   }
   signOut() {
     this.loginService.signMeOut();

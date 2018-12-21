@@ -37,9 +37,9 @@
 <div style="text-align:center">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-6 col-lg-3 p-2" *ngFor="let phone of mobilePhones" [routerLink]="['/mobilePhone', phone.mobileId]">
+      <div class="col-12 col-md-6 col-lg-3 d-flex p-2" *ngFor="let phone of mobilePhones" [routerLink]="['/mobilePhone', phone.mobileId]">
         <!-- Card -->
-        <div class="card">
+        <div class="card flex-fill shadow-sm">
           <!-- Card image -->
           <div class="view overlay">
             <img class="img-thumbnail" src="{{ phone.mobileImageUrl}}" alt="Card image cap">
@@ -52,11 +52,11 @@
             <!-- <h5 class="">{{phone.mobileName}}</h5> -->
           </div>
           <div class="card-footer text-muted  ng-scope" ng-controller="myContrl" ng-init="id=3;quantity=4;price=150">
-            <span class="float-left mt-2">
+            <span class="float-left mt-1">
               <span>{{phone.mobilePrice}}</span>
             </span>
             <span class="float-right">
-              <a [routerLink]="['/mobilePhone', phone.mobileId]" class=" btn btn-info" ng-click="addToBasket(id,quantity,price)">
+              <a [routerLink]="['/mobilePhone', phone.mobileId]" class=" btn btn-info btn-sm" ng-click="addToBasket(id,quantity,price)">
                 <span>
                   <i class="lnr lnr-cart"></i>
                 </span> Add to Cart</a>

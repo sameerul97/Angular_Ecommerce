@@ -70,6 +70,9 @@ export class DetailPhoneComponent implements OnInit {
       this.threeStars = parseInt(parseInt(reviewContent.threeStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
       this.fourStars = parseInt(parseInt(reviewContent.fourStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
       this.fiveStars = parseInt(parseInt(reviewContent.fiveStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+      // this.twoStars = this.twoStars + "%"
+      console.log(this.twoStars)
+      console.log(this.fiveStars)
     }
   }
 

@@ -108,6 +108,12 @@ h1 { font-size: 1.5em; margin: 10px; }
   color: #ddd; 
  float: right; 
 }
+.customTopLine{
+  margin-top: 50px!important;
+}
+.customBottomLine{
+  margin-top: 26px!important;
+}
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 

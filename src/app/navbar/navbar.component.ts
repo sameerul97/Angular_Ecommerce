@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   public userName;
   public basketItems: basketItem[];
   ngOnInit() {
+    console.log("DUDEEEE")
     if (this.loginService.isLoggedIn()) {
       this.basketService.getItemsInMyBasket().subscribe(res => this.setNoOfItems(res));
       this.userName = localStorage.getItem("userName")

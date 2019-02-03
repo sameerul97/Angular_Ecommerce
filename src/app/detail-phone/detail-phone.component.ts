@@ -27,36 +27,85 @@ export class DetailPhoneComponent implements OnInit {
   public android: boolean = false;
   public fullSpec = [];
   public success = "";
+  public noOfStars = 5;
+  public starsGiven = 0;
+  public totalNoOfReviews = 0;
+  public Reviews = [];
+  public myGivenStar;
+  public myOpinion;
+  public reviewSuccess; reviewSuccessOrNot;
+  public oneStars; twoStars; threeStars; fourStars; fiveStars
   constructor(private route: ActivatedRoute,
     private router: Router, private phoneService: PhonesService,
     private loginService: LoginService, private basketService: BasketService,
     private reloginComponent: ReLoginComponent) { }
   ngOnInit() {
     console.log(this.phoneService.currentMobilePhoneId)
-    // this.sizeVariant = [12,213]
     let id = this.route.snapshot.paramMap.get('mobileId');
-    // let id = this.route.snapshot.queryParamMap.get('phone.mobileId');
-    console.log("ID " + id);
-    // console.log("ID " + id.length);
     var phoneId = parseInt(id);
+    this.currentMobileId = phoneId;
     console.log(this.basketService.itemsToOrder);
-    // if (this.phoneService.currentMobilePhoneId == undefined) {
     if (phoneId >= 100 && phoneId <= 130) {
       this.phoneService.getMobilePhone(phoneId).subscribe(res =>
         this.storeData(res)
       );
-
-      // }
+      this.phoneService.getProductReviews(phoneId).subscribe(response => this.setReviews(response));
     }
     else {
-      console.log(this.phoneService.currentMobilePhoneId)
-      // if (this.phoneService.currentMobilePhoneId.length < 0) {
       this.router.navigate(['/notFound'])
+    }
+  }
+
+  setReviews(reviewContent) {
+    if (reviewContent.reviews != "None") {
+      this.starsGiven = reviewContent.ratings;
+      this.totalNoOfReviews = reviewContent.totalReviews;
+      var tempReviews = reviewContent.reviews
+      for (let key in tempReviews) {
+        let value = tempReviews[key];
+        this.Reviews.push(value);
+      }
+      this.oneStars = parseInt(parseInt(reviewContent.oneStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+      this.twoStars = parseInt(parseInt(reviewContent.twoStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+      this.threeStars = parseInt(parseInt(reviewContent.threeStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+      this.fourStars = parseInt(parseInt(reviewContent.fourStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+      this.fiveStars = parseInt(parseInt(reviewContent.fiveStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
+    }
+  }
+
+  myFunction(event: any) {
+    this.myGivenStar = event.target.value;
+  }
+  sendReview() {
+    if (this.loginService.isLoggedIn()) {
+      this.phoneService.postMyReview(this.myOpinion, this.noOfStars, this.currentMobileId).subscribe(response =>
+        this.setReviewMessage(response));
+    } else {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = "Please Login in "
+    }
+  }
+  
+  setReviewMessage(response) {
+    if (response.Message == "success") {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = "Success! Your Review has been posted";
+      setTimeout(() => {   
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = ""
+        this.ngOnInit();
+      }, 3000);
+    } else {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = response.Message;
+      setTimeout(() => {   
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = ""
+      }, 3000);
     }
   }
   addToBasket() {
     if (this.loginService.isLoggedIn()) {
-      console.log("YO FAM");
       var userId = localStorage.getItem("userId");
       this.basketService.postItemInMyBasket(userId,
         this.phone.mobileId, this.phone.mobileName, this.phone.mobilePrice, this.phone.imageUrl).subscribe(res =>
@@ -66,10 +115,9 @@ export class DetailPhoneComponent implements OnInit {
     else {
       this.reloginComponent.show();
     }
-
   }
+
   storeData(res) {
-    // console.log(res.mobileData);
     console.log(res);
     var res = res.MobileData;
     var tempSize = res.sizeVariant;
@@ -84,8 +132,6 @@ export class DetailPhoneComponent implements OnInit {
       let value = tempColours[key];
       this.colorVariant.push(value);
     }
-
-    // topSpec
     this.mobTopSpec.battery = res.topSpec.battery;
     this.mobTopSpec.os = res.topSpec.os;
     if (res.topSpec.os == "Android") {
@@ -94,24 +140,15 @@ export class DetailPhoneComponent implements OnInit {
     this.mobTopSpec.camera = res.topSpec.camera;
     this.mobTopSpec.storage = res.topSpec.storage;
     this.mobTopSpec.display = res.topSpec.display;
-    // console.log(this.colorVariant);
-
     var tempFullSpec = res.fullSpec;
 
     for (let key in tempFullSpec) {
-      // console.log(key)
       let value = tempFullSpec[key];
-      // console.log(tempFullSpec[key]+":"+value)
       this.fullSpec.push(key + ": " + value);
     }
-    // this.fullSpec.forEach(element => {
-    //   console.log(element)
-    // });
-    // console.log(this.fullSpec);
     // set the size variant into first value by default when loading
     this.selectedSizeVariant = this.sizeVariant[0];
     this.selectedColorVariant = this.colorVariant[0];
-
     // setting Phone 
     this.phone.mobileId = res.mobileId;
     this.phone.mobileName = res.mobileName;
@@ -127,7 +164,6 @@ export class DetailPhoneComponent implements OnInit {
     } else {
       this.reloginComponent.show();
     }
-
   }
   loadSelectedSize(size) {
     // console.log(size);

@@ -75,7 +75,7 @@ export class PhonesService {
     )
   }
 
-  orderPhone(mobile){
+  orderPhone(mobile) {
     const userID = localStorage.getItem('userId');
     // const token = localStorage.getItem('token');
     const body = new HttpParams()
@@ -88,8 +88,8 @@ export class PhonesService {
 
     // let headers = new HttpHeaders().set('Authorization',
     //   token);
-    return this.http_Var.post("http://localhost:3000/orderPhone/", 
-    body.toString(),
+    return this.http_Var.post("http://localhost:3000/orderPhone/",
+      body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -110,18 +110,26 @@ export class PhonesService {
     )
   }
 
+  // Get Product reviews
+  getProductReviews(mobileId): Observable<mobilePhone[]> {
+    // const token = localStorage.getItem('token');
+    // let headers = new HttpHeaders().set('Authorization',
+    //   token);
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/productReview/" + mobileId
+    )
+  }
+
   // returns all wished Items
   getMyWishedItems(): Observable<mobilePhone[]> {
     const userID = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-
     let headers = new HttpHeaders().set('Authorization',
       token);
     return this.http_Var.get<mobilePhone[]>("http://localhost:3000/myWishedProduct/" + userID, { headers }
     )
   }
 
-  
+
   // returns all wished Items
   addToMyWishList(mobileId) {
     var userId = localStorage.getItem("userId");
@@ -160,6 +168,7 @@ export class PhonesService {
     )
   }
 
+
   // Updating a profile
   updateProfile(userId, username) {
     const body = new HttpParams()
@@ -167,6 +176,30 @@ export class PhonesService {
       .set('name', username)
     var storedToken = localStorage.getItem('token');
     return this.http_Var.post("http://localhost:3000/updateProfile",
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken)
+
+      }
+    )
+  }
+
+  postMyReview(myOpinion, noOfStars,mobileId) {
+    const userID = localStorage.getItem('userId');
+    // const token = localStorage.getItem('token');
+    const body = new HttpParams()
+      .set('userId', userID)
+      .set('userName', localStorage.getItem('userName'))
+      .set('noOfStars', noOfStars)
+      .set('opinionText',myOpinion)
+      .set('mobileId', mobileId)
+    var storedToken = localStorage.getItem('token');
+
+    // let headers = new HttpHeaders().set('Authorization',
+    //   token);
+    return this.http_Var.post("http://localhost:3000/writeMyReview/",
       body.toString(),
       {
         headers: new HttpHeaders()

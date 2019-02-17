@@ -13,7 +13,7 @@
       </div>
       <div class="col-md-6">
 
-        <div *ngIf="starsGiven > 0; else noReviews" class="mt-1 mb-1 starRating">
+        <div *ngIf="starsGiven > 0; else noReviews" class="mt-1 mb-1">
           <span *ngFor="let number of [1,2,3,4,5]">
             <span *ngIf="number <= starsGiven; else normalStar" class="fa fa-star checked"></span>
           </span>
@@ -89,6 +89,11 @@
           <p class="font-weight-light"> {{mobTopSpec.display}} </p>
         </div>
       </div>
+      <div class="text-center">
+        <span class="text-center btn btn-link text-primary viewFullSpecLink" data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="false" aria-controls="collapseOne">VIEW FULL SPECIFICATIONS</span>
+      </div>
+
     </div>
     <ng-template #ios>
       <div class="col col3">
@@ -98,94 +103,184 @@
       </div>
     </ng-template>
 
-    <div class="shadow p-3 mb-5 bg-light rounded">
-      <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Full Spec</p>
-      <table class="table table-striped">
-        <tbody>
-          <tr *ngFor="let spec of fullSpec; let i = index">
-            <th scope="row">{{i}}</th>
-            <td style="color:rgba(58, 133, 191, 0.75);">{{spec}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="bg-light rounded text-center p-3 mb-5">
-      <p class=" font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Reviews</p>
-      <div class="row">
-        <div class="col-sm-4 ">
-          <p class="text-center">
-            {{totalNoOfReviews}} Cutomer Reviews
-          </p>
-          <div class="row rounded" style="padding:3px;margin:3px;">
-            <div class="side">
-              <div>5 star</div>
-            </div>
-            <div class="middle">
-              <div class="bar-container">
-                <div [style.width]="fiveStars" class="bar-5"></div>
-              </div>
-            </div>
-            <div class="side right">
-              <div>{{fiveStars}}%</div>
-            </div>
-            <div class="side">
-              <div>4 star</div>
-            </div>
-            <div class="middle">
-              <div class="bar-container">
-                <div [style.width]="fourStars" class="bar-4"></div>
-              </div>
-            </div>
-            <div class="side right">
-              <div>{{fourStars}}%</div>
-            </div>
-            <div class="side">
-              <div>3 star</div>
-            </div>
-            <div class="middle">
-              <div class="bar-container">
-                <div [style.width]="threeStars" class="bar-3"></div>
-              </div>
-            </div>
-            <div class="side right">
-              <div>{{threeStars}}%</div>
-            </div>
-            <div class="side">
-              <div>2 star</div>
-            </div>
-            <div class="middle">
-              <div class="bar-container">
-                <div [style.width]="twoStars" class="bar-2"></div>
-              </div>
-            </div>
-            <div class="side right">
-              <div>{{twoStars}}%</div>
-            </div>
-            <div class="side">
-              <div>1 star</div>
-            </div>
-            <div class="middle">
-              <div class="bar-container">
-                <div [style.width]="oneStars" class="bar-1"></div>
-              </div>
-            </div>
-            <div class="side right">
-              <div>{{oneStars}}%</div>
-            </div>
-          </div>
-          <!-- <hr style="border:3px solid #f1f1f1"> -->
-          <hr class="a-spacing-large a-spacing-top-large " style="margin-top: 22px!important;margin-bottom: 22px!important;">
-          <div class="text-left">
-            <p class="font-weight-bold">Review this product</p>
-            <p class="font-weight-normal">Share your thoughts with other customers</p>
-            <button type="button" class="btn btn-outline-info btn-block" data-toggle="modal" data-target="#exampleModalCenter">Write
-              a customer review</button>
 
+    <div class="shadow p-3 mb-5 bg-light rounded">
+
+      <div class="accordion" id="accordionExample">
+        <div class="">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="false" aria-controls="collapseOne">
+                <i class="fas fa-chevron-circle-down fa-2x"> </i>
+              </button>
+              <span class="btn btn-link fullSpecLink" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                aria-controls="collapseOne">TECHNICAL SPECIFICATIONS</span>
+            </h5>
           </div>
         </div>
 
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Full Spec</p>
+            <table class="table table-striped">
+              <tbody>
+                <tr *ngFor="let spec of fullSpec; let i = index">
+                  <th scope="row">{{i}}</th>
+                  <td style="color:rgba(58, 133, 191, 0.75);">{{spec}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-light rounded text-center p-3 mb-5">
+      <p class=" font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Customer questions & answers</p>
+      <div class="row">
         <div class="col-sm-8">
-          <div *ngFor="let review of Reviews; let i = index" class="shadow bg-light rounded text-left">
+          <div *ngIf="questionAndAnswers.length > 0 ; else noQuestionAndAnswer">
+            <div *ngFor="let qandA of questionAndAnswers; let i = index" class="shadow bg-light rounded text-left">
+              <div class="border  p-3 mb-5 mt-4">
+                <p class="font-weight-bold  text-primary">{{qandA.question}}</p>
+                <div class="card-footer text-muted">
+                  <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
+                  {{qandA.userName}}
+                  <span class="float-right mt-1">
+                    <a class=" btn btn-info text-light btn-sm" data-toggle="modal" (click)="loadQuestionIntoModal(qandA)"
+                      data-target="#writingAnAnswer">
+                      Answer {{qandA.userName}} question </a>
+                  </span>
+                </div>
+                <div *ngIf="qandA.answers.length <= 2 ; else viewMoreAnswer">
+                  <div *ngFor="let ans of qandA.answers;" class="p-1 ml-3 mb-2 mt-2">
+                    <p class="font-weight-light">{{ans.answer}}</p>
+                    <div class="card-footer text-muted">
+                      <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
+                      Answered by {{ans.userName}}
+                    </div>
+                  </div>
+                </div>
+                <ng-template #viewMoreAnswer>
+                  <div class="accordion" id="accordionExample">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#viewAllAnswer"
+                        aria-expanded="false" aria-controls="collapseOne">
+                        <i class="fas fa-chevron-circle-down"></i>
+                      </button>
+                      <span class="btn btn-link fullSpecLink" data-toggle="collapse" data-target="#viewAllAnswer"
+                        aria-expanded="false" aria-controls="collapseOne">View answer</span>
+                    </h5>
+                    <div id="viewAllAnswer" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div *ngFor="let ans of qandA.answers;" class="p-1 ml-3 mb-2 mt-2">
+                        <p class="font-weight-light">{{ans.answer}}</p>
+                        <div class="card-footer text-muted">
+                          <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
+                          Answered by {{ans.userName}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <ng-template #noQuestionAndAnswer>
+              <p>No Question and Answers</p>
+            </ng-template>
+        </div>
+        <div class="col-sm-4">
+            <hr style="margin-top: 22px!important;margin-bottom: 22px!important;">
+            <div class="text-left">
+              <p class="font-weight-bold">Answer a question</p>
+              <button type="button" class="btn btn-outline-info btn-block" data-toggle="modal" data-target="#postQuestion">Post
+                question</button>
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+
+  <div class="bg-light rounded text-center p-3 mb-5">
+    <p class=" font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Reviews</p>
+    <div class="row">
+      <div class="col-sm-4">
+        <p class="text-center">
+          {{totalNoOfReviews}} Cutomer Reviews
+        </p>
+        <div class="row rounded" style="padding:3px;margin:3px;">
+          <div class="side">
+            <div>5 star</div>
+          </div>
+          <div class="middle">
+            <div class="bar-container">
+              <div [style.width]="fiveStars" class="bar-5"></div>
+            </div>
+          </div>
+          <div class="side right">
+            <div>{{fiveStars}}</div>
+          </div>
+          <div class="side">
+            <div>4 star</div>
+          </div>
+          <div class="middle">
+            <div class="bar-container">
+              <div [style.width]="fourStars" class="bar-4"></div>
+            </div>
+          </div>
+          <div class="side right">
+            <div>{{fourStars}}</div>
+          </div>
+          <div class="side">
+            <div>3 star</div>
+          </div>
+          <div class="middle">
+            <div class="bar-container">
+              <div [style.width]="threeStars" class="bar-3"></div>
+            </div>
+          </div>
+          <div class="side right">
+            <div>{{threeStars}}</div>
+          </div>
+          <div class="side">
+            <div>2 star</div>
+          </div>
+          <div class="middle">
+            <div class="bar-container">
+              <div [style.width]="twoStars" class="bar-2"></div>
+            </div>
+          </div>
+          <div class="side right">
+            <div>{{twoStars}}</div>
+          </div>
+          <div class="side">
+            <div>1 star</div>
+          </div>
+          <div class="middle">
+            <div class="bar-container">
+              <div [style.width]="oneStars" class="bar-1"></div>
+            </div>
+          </div>
+          <div class="side right">
+            <div>{{oneStars}}</div>
+          </div>
+        </div>
+        <!-- <hr style="border:3px solid #f1f1f1"> -->
+        <hr style="margin-top: 22px!important;margin-bottom: 22px!important;">
+        <div class="text-left">
+          <p class="font-weight-bold">Review this product</p>
+          <p class="font-weight-normal">Share your thoughts with other customers</p>
+          <button type="button" class="btn btn-outline-info btn-block" data-toggle="modal" data-target="#exampleModalCenter">Write
+            a customer review</button>
+
+        </div>
+      </div>
+
+      <div class="col-sm-8">
+        <div *ngIf="totalNoOfReviews > 0 ; else noReviewsTemplate">
+          <div *ngFor="let review of Reviews; let i = index" class="shadow-sm bg-light rounded text-left">
             <div class="border  p-3 mb-5 mt-4">
               <div class="mt-1 mb-1 starRating">
                 <span *ngFor="let number of [1,2,3,4,5]">
@@ -198,62 +293,136 @@
               <p class="font-weight-bold">{{review.opinion}}</p>
               <p class="font-weight-normal">{{review.opinion}}</p>
               <div class="card-footer text-muted">
-                <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png"
-                  class="bg-secondary">
+                <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
                 {{review.userName}}
               </div>
             </div>
           </div>
         </div>
+        <ng-template #noReviewsTemplate>
+          <p>No Reviews</p>
+        </ng-template>
       </div>
     </div>
   </div>
-  <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Review</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div *ngIf="reviewSuccess"  class="alert alert-success" role="alert">
-              {{reviewSuccessOrNot}}
-            </div>
-            <span>Stars</span>
-            <div>
-              <fieldset class="rating">
-                <input type="radio" id="star5" name="rating" value="5" (click)="myFunction($event)" /><label class="full"
-                  for="star5"></label>
-                <input type="radio" id="star4" name="rating" value="4" (click)="myFunction($event)" /><label class="full"
-                  for="star4"></label>
-                <input type="radio" id="star3" name="rating" value="3" (click)="myFunction($event)" /><label class="full"
-                  for="star3"></label>
-                <input type="radio" id="star2" name="rating" value="2" (click)="myFunction($event)" /><label class="full"
-                  for="star2"></label>
-                <input type="radio" id="star1" name="rating" value="1" (click)="myFunction($event)" /><label class="full"
-                  for="star1"></label>
-              </fieldset>
-            </div>
-            <hr class="customTopLine customBottonLine">
-            <span>Comment</span>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">With textarea</span>
-              </div>
-              <textarea class="form-control" [(ngModel)]="myOpinion" aria-label="With textarea"></textarea>
-            </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div *ngIf="reviewSuccess" class="alert alert-success" role="alert">
+            {{reviewSuccessOrNot}}
           </div>
+          <span>Stars</span>
+          <div>
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" (click)="myFunction($event)" /><label class="full"
+                for="star5"></label>
+              <input type="radio" id="star4" name="rating" value="4" (click)="myFunction($event)" /><label class="full"
+                for="star4"></label>
+              <input type="radio" id="star3" name="rating" value="3" (click)="myFunction($event)" /><label class="full"
+                for="star3"></label>
+              <input type="radio" id="star2" name="rating" value="2" (click)="myFunction($event)" /><label class="full"
+                for="star2"></label>
+              <input type="radio" id="star1" name="rating" value="1" (click)="myFunction($event)" /><label class="full"
+                for="star1"></label>
+            </fieldset>
+          </div>
+          <hr class="customTopLine customBottonLine">
+          <span>Comment</span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">With textarea</span>
+            </div>
+            <textarea class="form-control" [(ngModel)]="myOpinion" aria-label="With textarea"></textarea>
+          </div>
+        </div>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" (click)="sendReview()">Post Review</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="sendReview()">Post Review</button>
       </div>
     </div>
   </div>
-  <app-re-login></app-re-login>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="writingAnAnswer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Write answer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div *ngIf="reviewSuccess" class="alert alert-success" role="alert">
+            {{reviewSuccessOrNot}}
+          </div>
+          <div>
+            {{question}}
+          </div>
+          <hr class="customTopLine customBottonLine">
+          <span>Enter your answer</span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">With textarea</span>
+            </div>
+            <textarea class="form-control" [(ngModel)]="myAnswer" aria-label="With textarea"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="AnswerModalcloseButton" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="sendAnswer()">Post Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Post quesion modal -->
+<div class="modal fade bd-example-modal-lg" id="postQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Ask your question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div *ngIf="reviewSuccess" class="alert alert-success" role="alert">
+            {{reviewSuccessOrNot}}
+          </div>
+          <hr class="customTopLine customBottonLine">
+          <span>Enter your question</span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Question</span>
+            </div>
+            <textarea class="form-control" [(ngModel)]="myQuestion" aria-label="With textarea"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="loadQuestionIntoModalCloseButton" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="sendQuestion()">Post Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-re-login></app-re-login>

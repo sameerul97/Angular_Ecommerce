@@ -118,6 +118,10 @@ export class PhonesService {
     return this.http_Var.get<mobilePhone[]>("http://localhost:3000/productReview/" + mobileId
     )
   }
+  getQuestionAndAnswers(mobileId): Observable<mobilePhone[]> {
+    return this.http_Var.get<mobilePhone[]>("http://localhost:3000/getQAndAs/" + mobileId
+    )
+  }
 
   // returns all wished Items
   getMyWishedItems(): Observable<mobilePhone[]> {
@@ -200,6 +204,51 @@ export class PhonesService {
     // let headers = new HttpHeaders().set('Authorization',
     //   token);
     return this.http_Var.post("http://localhost:3000/writeMyReview/",
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken)
+
+      }
+    )
+  }
+  postMyAnswer(myAnswer,questionId) {
+    const userID = localStorage.getItem('userId');
+    // const token = localStorage.getItem('token');
+    const body = new HttpParams()
+      .set('userId', localStorage.getItem('userId'))
+      .set('userName', localStorage.getItem('userName'))
+      .set('answer', myAnswer)
+      .set('questionId',questionId)
+    var storedToken = localStorage.getItem('token');
+
+    // let headers = new HttpHeaders().set('Authorization',
+    //   token);
+    return this.http_Var.post("http://localhost:3000/postAnswer/",
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+          .set('Authorization', storedToken)
+
+      }
+    )
+  }
+
+  postMyQuestion(myQuestion,mobileId) {
+    const userID = localStorage.getItem('userId');
+    // const token = localStorage.getItem('token');
+    const body = new HttpParams()
+      .set('userId', localStorage.getItem('userId'))
+      .set('userName', localStorage.getItem('userName'))
+      .set('question',myQuestion)
+      .set('mobileId',mobileId)
+    var storedToken = localStorage.getItem('token');
+
+    // let headers = new HttpHeaders().set('Authorization',
+    //   token);
+    return this.http_Var.post("http://localhost:3000/postQuestion/",
       body.toString(),
       {
         headers: new HttpHeaders()

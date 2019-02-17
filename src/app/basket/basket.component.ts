@@ -52,6 +52,11 @@ export class BasketComponent implements OnInit {
       this.reLoginComponent.show();
     }
   }
+  deleteItem(phone){
+    // event.preventDefault();
+    var itemId = phone._id ;
+    this.basketService.deleteItemInMyBasket(itemId).subscribe(res => this.ngOnInit())
+  }
 
   showConfirmation(mobile) {
     if (this.loginService.isLoggedIn()) {

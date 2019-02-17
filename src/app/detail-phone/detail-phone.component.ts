@@ -31,10 +31,12 @@ export class DetailPhoneComponent implements OnInit {
   public starsGiven = 0;
   public totalNoOfReviews = 0;
   public Reviews = [];
+  public questionAndAnswers = [];
   public myGivenStar;
   public myOpinion;
   public reviewSuccess; reviewSuccessOrNot;
-  public oneStars; twoStars; threeStars; fourStars; fiveStars
+  public oneStars; twoStars; threeStars; fourStars; fiveStars;
+  public selectedQuestion; question; myAnswer; myQuestion;
   constructor(private route: ActivatedRoute,
     private router: Router, private phoneService: PhonesService,
     private loginService: LoginService, private basketService: BasketService,
@@ -44,22 +46,97 @@ export class DetailPhoneComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('mobileId');
     var phoneId = parseInt(id);
     this.currentMobileId = phoneId;
-    console.log(this.basketService.itemsToOrder);
+    // console.log(this.basketService.itemsToOrder);
     if (phoneId >= 100 && phoneId <= 130) {
       this.phoneService.getMobilePhone(phoneId).subscribe(res =>
         this.storeData(res)
       );
       this.phoneService.getProductReviews(phoneId).subscribe(response => this.setReviews(response));
+      this.phoneService.getQuestionAndAnswers(phoneId).subscribe(response => this.setQuestionAndAnswer(response));
     }
     else {
       this.router.navigate(['/notFound'])
     }
   }
+  loadQuestionIntoModal(question) {
+    console.log(question);
+    this.selectedQuestion = question;
+    this.question = this.selectedQuestion.question;
+    console.log(this.selectedQuestion.question);
+  }
+  sendQuestion() {
+    console.log(this.myQuestion);
+    // headphones included ?
+    this.phoneService.postMyQuestion(this.myQuestion, this.currentMobileId).subscribe(response => this.setPostedQuestionMessage(response));
+  }
 
+  setPostedQuestionMessage(response) {
+    if (response.Message == "Success") {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = "Success! Your question has been posted";
+      setTimeout(() => {
+        var element = document.getElementById("loadQuestionIntoModalCloseButton") as any;
+        element.click();
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = "";
+        this.ngOnInit();
+      }, 2000);
+    } else {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = response.Message;
+      setTimeout(() => {
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = ""
+      }, 3000);
+    }
+  }
+  sendAnswer() {
+    console.log(this.selectedQuestion);
+    console.log(this.myAnswer);
+    if (this.loginService.isLoggedIn()) {
+      this.phoneService.postMyAnswer(this.myAnswer, this.selectedQuestion._id).subscribe(response =>
+        this.setQuestionAndAnswerMessage(response));
+    } else {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = "Please Login in "
+    }
+  }
+
+  setQuestionAndAnswerMessage(response) {
+    if (response.Message == "Success") {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = "Success! Your answer has been posted";
+      setTimeout(() => {
+        var element = document.getElementById("AnswerModalcloseButton") as any;
+        element.click();
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = "";
+        this.ngOnInit();
+      }, 2000);
+    } else {
+      this.reviewSuccess = true;
+      this.reviewSuccessOrNot = response.Message;
+      setTimeout(() => {
+        this.reviewSuccess = false;
+        this.reviewSuccessOrNot = ""
+      }, 3000);
+    }
+  }
+  setQuestionAndAnswer(questionAndAnswers) {
+    if (questionAndAnswers.qAndAs != "None") {
+      console.log("Questions and Answers")
+      // console.log(questionAndAnswers.qAndAs);
+      this.questionAndAnswers = questionAndAnswers.qAndAs;
+      console.log(this.questionAndAnswers)
+
+    } else {
+      console.log("No Questions and Answers")
+    }
+  }
   setReviews(reviewContent) {
     if (reviewContent.reviews != "None") {
       this.starsGiven = reviewContent.ratings;
-      this.totalNoOfReviews = reviewContent.totalReviews;
+      this.totalNoOfReviews = parseInt(reviewContent.totalReviews);
       var tempReviews = reviewContent.reviews
       for (let key in tempReviews) {
         let value = tempReviews[key];
@@ -70,9 +147,14 @@ export class DetailPhoneComponent implements OnInit {
       this.threeStars = parseInt(parseInt(reviewContent.threeStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
       this.fourStars = parseInt(parseInt(reviewContent.fourStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
       this.fiveStars = parseInt(parseInt(reviewContent.fiveStars) / parseInt(reviewContent.totalReviews) * 100 + "%");
-      // this.twoStars = this.twoStars + "%"
-      console.log(this.twoStars)
-      console.log(this.fiveStars)
+      console.log(this.oneStars)
+      this.oneStars += "%"
+      this.twoStars += "%"
+      this.threeStars += "%"
+      this.fourStars += "%"
+      this.fiveStars += "%"
+    } else {
+      this.oneStars = this.twoStars = this.threeStars = this.fourStars = this.fiveStars = "0%";
     }
   }
 
@@ -88,20 +170,22 @@ export class DetailPhoneComponent implements OnInit {
       this.reviewSuccessOrNot = "Please Login in "
     }
   }
-  
+
   setReviewMessage(response) {
     if (response.Message == "success") {
       this.reviewSuccess = true;
-      this.reviewSuccessOrNot = "Success! Your Review has been posted";
-      setTimeout(() => {   
+      this.reviewSuccessOrNot = "Success! Your review has been posted";
+      setTimeout(() => {
+        var element = document.getElementById("closeButton") as any;
+        element.click();
         this.reviewSuccess = false;
-        this.reviewSuccessOrNot = ""
+        this.reviewSuccessOrNot = "";
         this.ngOnInit();
-      }, 3000);
+      }, 2000);
     } else {
       this.reviewSuccess = true;
       this.reviewSuccessOrNot = response.Message;
-      setTimeout(() => {   
+      setTimeout(() => {
         this.reviewSuccess = false;
         this.reviewSuccessOrNot = ""
       }, 3000);
@@ -121,7 +205,6 @@ export class DetailPhoneComponent implements OnInit {
   }
 
   storeData(res) {
-    console.log(res);
     var res = res.MobileData;
     var tempSize = res.sizeVariant;
     var tempColours = res.colourVariant;

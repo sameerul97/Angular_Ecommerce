@@ -13,7 +13,8 @@ export class UserDashboardComponent implements OnInit {
   constructor(private phoneService: PhonesService,
     private ReLoginComponent: ReLoginComponent,
     private loginService: LoginService) { }
-  public myUsername; myEmail;
+  public myUsername = localStorage.getItem("userName") ; 
+  public myEmail;
   public orders = [];
   public wishedItems = [];
   public wishtedItemsBool = false;
@@ -32,7 +33,7 @@ export class UserDashboardComponent implements OnInit {
   }
   loadProfile(response) {
     console.log(response);
-    this.myUsername = response.name;
+    this.myUsername = localStorage.getItem("userName");
     this.myEmail = response.email;
   }
   updateProfile() {
